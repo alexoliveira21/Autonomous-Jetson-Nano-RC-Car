@@ -12,6 +12,7 @@ try:
     while True:
         events = pygame.event.get()
         for event in events:
+            print("AXIS: {}".format(controller.get_axis(0)))
             if event.type == pygame.JOYBUTTONDOWN:
                 if controller.get_button(0):
                     print("X Pressed")
@@ -45,4 +46,4 @@ try:
 
 except KeyboardInterrupt:
     print("EXITING NOW")
-    j.quit()
+    controller.quit()
