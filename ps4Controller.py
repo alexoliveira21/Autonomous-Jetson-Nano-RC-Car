@@ -1,4 +1,12 @@
 import pygame
+from adafruit_servokit import ServoKit()
+
+#initializes servos
+kit = ServoKit(channels = 16)
+steering = kit.servo[0]
+motor = kit.servo[15]
+steering.angle = 90
+motor.angle = 90
 
 #initializes pygame
 pygame.init()
@@ -8,11 +16,21 @@ controller = pygame.joystick.Joystick(0)
 
 #initializes the controller
 controller.init()
+
+def scale_servo(self, x):
+
+        # used to scale -1,1 to 0,180
+        y = round((30-70)*x+1/1+1+70,2)
+
+        return y
+
 try:
     while True:
         events = pygame.event.get()
         for event in events:
-            print("AXIS: {}".format(controller.get_axis(0)))
+            angle = scale_servo(controller.get_axis(0))
+            steering.angle = angle
+            print("Angle: {}".format(angle))
             if event.type == pygame.JOYBUTTONDOWN:
                 if controller.get_button(0):
                     print("X Pressed")
