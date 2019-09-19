@@ -14,13 +14,13 @@ try:
         for event in events:
             if event.type == pygame.JOYBUTTONDOWN:
                 if controller.get_button(0):
-                    print("Square Pressed")
-                elif controller.get_button(1):
                     print("X Pressed")
-                elif controller.get_button(2):
+                elif controller.get_button(1):
                     print("Circle Pressed")
-                elif controller.get_button(3)
+                elif controller.get_button(2):
                     print("Triangle Pressed")
+                elif controller.get_button(3):
+                    print("Square Pressed")
                 elif controller.get_button(4):
                     print("L1 Pressed")
                 elif controller.get_button(5):
@@ -34,13 +34,11 @@ try:
                 elif controller.get_button(9):
                     print("OPTIONS Pressed")
                 elif controller.get_button(10):
-                    print("Left Analog Pressed")
-                elif controller.get_button(11):
-                    print("Right Analog Pressed")
-                elif controller.get_button(12):
                     print("Power Button Pressed")
-                elif controller.get_button(13):
-                    print("Touchpad Pressed")
+                elif controller.get_button(11):
+                    print("Left Analog Pressed")
+                elif controller.get_button(12):
+                    print("Right Analog Pressed")
 
             elif event.type == pygame.JOYBUTTONUP:
                 print("Button Released")
