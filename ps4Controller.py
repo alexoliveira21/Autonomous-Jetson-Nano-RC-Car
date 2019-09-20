@@ -1,5 +1,5 @@
 import pygame
-from adafruit_servokit import ServoKit()
+from adafruit_servokit import ServoKit
 
 #initializes servos
 kit = ServoKit(channels = 16)
@@ -17,7 +17,7 @@ controller = pygame.joystick.Joystick(0)
 #initializes the controller
 controller.init()
 
-def scale_servo(self, x):
+def scale_servo(x):
 
         # used to scale -1,1 to 0,180
         y = round((30-70)*x+1/1+1+70,2)
