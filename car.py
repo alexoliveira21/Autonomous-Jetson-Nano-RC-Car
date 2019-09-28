@@ -3,14 +3,14 @@ from adafruit_servokit import ServoKit
 class Car():
 
     #creates and initializes a Car object
-    def __init__(self, motorPin = 0, servoPin = 1, default_motor_angle = 90, default_servo_angle = 90, camera):
+    def __init__(self, motorPin = 0, servoPin = 1, default_motor_angle = 90, default_servo_angle = 90, camera = 0):
 
         self.motorPin = motorPin
         self.servoPin = servoPin
         self.default_motor_angle = default_motor_angle
         self.default_servo_angle = default_servo_angle
         self.camera = camera
-        self.motor, self.servo = init_servos(self)
+        self.motor, self.servo = self.init_servos()
 
     # initializes motor and servo using the designated pins and default angles
     def init_servos(self):

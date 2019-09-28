@@ -1,8 +1,8 @@
-from controller import Controller()
+from controller import Controller
 from car import Car
 
 camera = 0
-car = Car(camera=camera)
+car = Car(motorPin = 15, servoPin = 0, camera=camera)
 controller = Controller(car=car)
 
 try:
