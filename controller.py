@@ -46,7 +46,7 @@ class Controller():
 
                     #if L2 trigger is pressed it will accelerate car in negative direction
                     elif self.controller.get_axis(left_trigger_axis) >= 0:
-                        self.car.change_throttle(convert_range(self.controller.get_axis(left_trigger_axis)))
+                        self.car.change_throttle(convert_range(self.controller.get_axis(left_trigger_axis)) - 90)
 
                     #change steering angle of vehicle based on left stick movement
                     self.car.change_steering(convert_range(self.controller.get_axis(left_stick_axis)))
@@ -55,11 +55,12 @@ class Controller():
                     if event.type == pygame.JOYBUTTONDOWN:
                         if controller.get_button(0):
                             print("X Pressed")
-                        elif controller.get_button(1):
-                            print("Circle Pressed")
-                        elif controller.get_button(2):
-                            print("Triangle Pressed")
-                        elif controller.get_button(3):
+                        elif controller.get_button(1): #Circle Buttom
+                            #ADD CODE TO STOP RECORDING
+                            print("Recording Stopped")
+                        elif controller.get_button(2): #Triangle Button
+                            #ADD CODE TO PRINT WHETHER CAMERA IS RECORDING OR NOT
+                        elif controller.get_button(3): #Square Button
                             print("Square Pressed")
                         elif controller.get_button(8): #PS4 Share Button
                             #ADD CODE TO START RECORDING

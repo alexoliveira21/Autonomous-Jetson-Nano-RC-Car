@@ -1,7 +1,9 @@
-from controller import Controller()
+from controller import Controller
 from car import Car
+from camera import Camera
 
-camera = 0
+image_file_path = '/Alex/Desktop/'
+camera =
 car = Car(camera=camera)
 controller = Controller(car=car)
 
@@ -11,4 +13,3 @@ try:
 except KeyboardInterrupt:
     print("EXITING PROGRAM")
     controller.quit()
-    
