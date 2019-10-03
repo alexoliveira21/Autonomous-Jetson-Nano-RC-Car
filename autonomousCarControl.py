@@ -1,8 +1,11 @@
 from controller import Controller
 from car import Car
+from camera import Camera
 
-camera = 0
-car = Car(motorPin = 15, servoPin = 0, camera=camera)
+image_file_path = "////////"
+csv_file_path = "////////"
+car = Car(motorPin = 15, servoPin = 0)
+camera = Camera(car=car, image_file_path=image_file_path, csv_file_path=csv_file_path)
 controller = Controller(car=car)
 
 try:
@@ -11,4 +14,3 @@ try:
 except KeyboardInterrupt:
     print("EXITING PROGRAM")
     controller.quit()
-    

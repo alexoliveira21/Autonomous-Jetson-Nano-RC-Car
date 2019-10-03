@@ -3,14 +3,16 @@ from adafruit_servokit import ServoKit
 class Car():
 
     #creates and initializes a Car object
-    def __init__(self, motorPin = 0, servoPin = 1, default_motor_angle = 90, default_servo_angle = 90, camera = 0):
+    def __init__(self, motorPin = 15, servoPin = 0, default_motor_angle = 90, default_servo_angle = 90):
 
         self.motorPin = motorPin
         self.servoPin = servoPin
         self.default_motor_angle = default_motor_angle
         self.default_servo_angle = default_servo_angle
-        self.camera = camera
-        self.motor, self.servo = self.init_servos()
+        self.motor, self.servo = init_servos(self)
+
+        self.current_throttle = default_motor_angle
+        self.current_angle = default_servo_angle
 
     # initializes motor and servo using the designated pins and default angles
     def init_servos(self):
@@ -31,19 +33,22 @@ class Car():
     #changes throttle of car with given input
     def change_throttle(self, angle):
 
-        self.motor.angle = angle
+        self.motor.angle = self.current_throttle = angle
 
         print("Throttle changed to {}".format(angle))
 
     #changes steering angle to given angle
     def change_steering(self, angle):
 
-        self.servo.angle = angle
+        self.servo.angle = self.current_angle = angle
 
         print("Steering angle changed to {}".format(angle))
 
 
     #performs an emergency stop on vehicle by setting it to its defaults
     def emergency_stop(self):
-        self.motor.angle = self.default_motor_angle
-        self.servo.angle = self.default_servo_angle
+        self.current_angle = self.motor.angle = self.default_motor_angle
+        self.current_angle = self.servo.angle = self.default_servo_angle
+
+    def get_data(self):
+        return self.current_throttle, self.current_angle
