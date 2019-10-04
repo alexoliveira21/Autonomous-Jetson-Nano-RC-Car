@@ -9,7 +9,7 @@ class Car():
         self.servoPin = servoPin
         self.default_motor_angle = default_motor_angle
         self.default_servo_angle = default_servo_angle
-        self.motor, self.servo = init_servos(self)
+        self.motor, self.servo = self.init_servos()
 
         self.current_throttle = default_motor_angle
         self.current_angle = default_servo_angle

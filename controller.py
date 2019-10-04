@@ -13,7 +13,7 @@ servo_angle_min = 20
 servo_angle_max = 160
 class Controller():
 
-    def __init__(self, car, joystick_number = 0):
+    def __init__(self, car, camera, joystick_number = 0):
         #initialize pygame to be able to listen for events
         pygame.init()
 
@@ -21,6 +21,7 @@ class Controller():
         self.controller = pygame.joystick.Joystick(joystick_number)
         self.controller.init()
         self.car = car
+        self.camera = camera
         print("Controller ID: {}".format(self.controller.get_id()))
 
     #convert (-1,1) range to (0,180) range
@@ -42,6 +43,26 @@ class Controller():
 
                 for event in events:
 
+                    if event.type == pygame.JOYBUTTONDOWN:
+                        if self.controller.get_button(0):
+                            self.camera.start_recording()
+                            print("Square Pressed")
+                        elif self.controller.get_button(1):
+                            self.camera.stop_recording()
+                            print("Circle Pressed")
+                        elif self.controller.get_button(2):
+                            print("Triangle Pressed")
+                        elif self.controller.get_button(3):
+                            print("X Pressed")
+                        elif self.controller.get_button(8): #PS4 Share Button
+                            #ADD CODE TO START RECORDING
+                            print("Now Recording")
+                        elif self.controller.get_button(10): #PS4 Power Button
+
+                            #stops listening for buttons being pressed
+                            listening = False
+                            print("Stopped Listening")
+
                     #if R2 trigger is pressed it will accelerate car in positive direction
                     if self.controller.get_axis(right_trigger_axis) >= 0:
                         self.car.change_throttle(self.convert_range(self.controller.get_axis(right_trigger_axis), motor_angle_max, motor_angle_min))
@@ -54,23 +75,7 @@ class Controller():
                     self.car.change_steering(self.convert_range(self.controller.get_axis(left_stick_axis), servo_angle_max, servo_angle_min))
 
 
-                    if event.type == pygame.JOYBUTTONDOWN:
-                        if self.controller.get_button(0):
-                            print("X Pressed")
-                        elif self.controller.get_button(1):
-                            print("Circle Pressed")
-                        elif self.controller.get_button(2):
-                            print("Triangle Pressed")
-                        elif self.controller.get_button(3):
-                            print("Square Pressed")
-                        elif self.controller.get_button(8): #PS4 Share Button
-                            #ADD CODE TO START RECORDING
-                            print("Now Recording")
-                        elif self.controller.get_button(10): #PS4 Power Button
-
-                            #stops listening for buttons being pressed
-                            listening = False
-                            print("Stopped Listening")
+                    
 
         except KeyboardInterrupt:
             print("EXITING NOW")

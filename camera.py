@@ -35,8 +35,8 @@ class Camera():
             timestamp = time.time()
 
             if success:
-                frame = cv2.COLOR_RGB2YUV(frame)
-                cv2.imwrite(filename='{}{}'.format(self.image_file_path, timestamp), img=frame)
+                frame = cv2.cvtColor(frame, cv2.COLOR_RGB2YUV)
+                cv2.imwrite(filename='{}{}.jpg'.format(self.image_file_path, timestamp), img=frame)
                 self.data['Timestamp'].append(timestamp)
                 self.data['Steering'].append(steering)
                 self.data['Throttle'].append(throttle)
@@ -48,5 +48,5 @@ class Camera():
         self.data['Throttle'].clear()
         print('Stopped Recording')
 
-    def stop_recording():
+    def stop_recording(self):
         self.recording = False
