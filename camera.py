@@ -20,6 +20,33 @@ class Camera():
         self.image_file_path = image_file_path
         self.csv_file_path = csv_file_path
 
+        #opens camera to begin recording
+        self.camera.open(self.camera_id)
+
+
+    def capture_frame(self):
+        if self.camera.isOpened == Flase:
+            self.camera.open(self.camera_id)
+
+        success, frame = self.camera.read() #returns true to success if frame was captured correctly
+        throttle, steering = self.car.get_data()
+        timestamp = time.time()
+
+        if success:
+            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2YUV)
+            cv2.imwrite(filename='{}{}.jpg'.format(self.image_file_path, timestamp), img=frame)
+            self.data['Timestamp'].append(timestamp)
+            self.data['Steering'].append(steering)
+            self.data['Throttle'].append(throttle)
+
+    def save_data(self):
+        dataframe = pd.DataFrame(self.data)
+        dataframe.to_csv(csv_file_path)
+        self.data['Timestamp'].clear()
+        self.data['Steering'].clear()
+        self.data['Throttle'].clear()
+        print('Stopped Recording')
+
     #function to start recording and save camera frames along with timestamps
     def start_recording(self):
 
@@ -40,7 +67,7 @@ class Camera():
                 self.data['Timestamp'].append(timestamp)
                 self.data['Steering'].append(steering)
                 self.data['Throttle'].append(throttle)
-                
+
         dataframe = pd.DataFrame(self.data)
         dataframe.to_csv(csv_file_path)
         self.data['Timestamp'].clear()

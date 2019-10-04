@@ -35,14 +35,14 @@ class Car():
 
         self.motor.angle = self.current_throttle = angle
 
-        print("Throttle changed to {}".format(angle))
+        #print("Throttle changed to {}".format(angle))
 
     #changes steering angle to given angle
     def change_steering(self, angle):
 
         self.servo.angle = self.current_angle = angle
 
-        print("Steering angle changed to {}".format(angle))
+        #print("Steering angle changed to {}".format(angle))
 
 
     #performs an emergency stop on vehicle by setting it to its defaults

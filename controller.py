@@ -3,14 +3,19 @@ import pygame
 #Axis 0 = left stick: -1 (completely left) -> 1 (completely right)
 #Axis 3 = left trigger: -1 (unpressed) -> 1 (completely pressed)
 #Axis 4 = right trigger: -1 (unpressed) -> 1 (completely pressed)
-right_trigger_axis = 4 
+right_trigger_axis = 4
 left_trigger_axis = 3
 left_stick_axis = 0
 
-motor_angle_min = 75
-motor_angle_max = 105
+#Sets a very low max speed, good for training purposes
+motor_angle_min = 80
+motor_angle_max = 100
+
+
 servo_angle_min = 20
 servo_angle_max = 160
+
+
 class Controller():
 
     def __init__(self, car, camera, joystick_number = 0):
@@ -33,7 +38,7 @@ class Controller():
     def listen_for_events(self):
 
         listening = True
-
+        print("Ready for input...")
         try:
 
             #loop to catch all button presses
@@ -42,21 +47,32 @@ class Controller():
                 events = pygame.event.get()
 
                 for event in events:
+                    if self.camera.recording:
+                        print("Currently Recording")
+                        self.camera.capture_frame
 
                     if event.type == pygame.JOYBUTTONDOWN:
+
                         if self.controller.get_button(0):
-                            self.camera.start_recording()
+                            self.camera.recording = True
                             print("Square Pressed")
+
                         elif self.controller.get_button(1):
-                            self.camera.stop_recording()
+                            self.camera.recording = False
+                            self.camera.save_data()
+                            print("Stopped Recording")
                             print("Circle Pressed")
+
                         elif self.controller.get_button(2):
                             print("Triangle Pressed")
+
                         elif self.controller.get_button(3):
                             print("X Pressed")
+
                         elif self.controller.get_button(8): #PS4 Share Button
                             #ADD CODE TO START RECORDING
                             print("Now Recording")
+
                         elif self.controller.get_button(10): #PS4 Power Button
 
                             #stops listening for buttons being pressed
@@ -75,7 +91,7 @@ class Controller():
                     self.car.change_steering(self.convert_range(self.controller.get_axis(left_stick_axis), servo_angle_max, servo_angle_min))
 
 
-                    
+
 
         except KeyboardInterrupt:
             print("EXITING NOW")
