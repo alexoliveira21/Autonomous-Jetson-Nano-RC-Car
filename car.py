@@ -52,4 +52,4 @@ class Car():
         self.current_angle = self.servo.angle = self.default_servo_angle
 
     def get_data(self):
-        return self.current_throttle, self.current_angle
+        return self.motor.angle, self.servo.angle

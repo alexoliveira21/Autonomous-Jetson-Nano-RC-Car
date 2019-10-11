@@ -37,7 +37,7 @@ class Controller():
     def convert_range(self, joystick_value, angle_max, angle_min):
         return (((joystick_value - (-1)) * (angle_max - angle_min)) / (1 - (-1))) + angle_min
 
-    
+
     #listen for any buttons being pressed
     def listen_for_events(self):
 
@@ -51,8 +51,8 @@ class Controller():
                 events = pygame.event.get()
 
                 for event in events:
-                    
-                    
+
+
                     if event.type == pygame.JOYBUTTONDOWN:
 
                         if self.controller.get_button(0):
@@ -68,7 +68,8 @@ class Controller():
                             print("Triangle Pressed")
 
                         elif self.controller.get_button(3):
-                            print("Circle Pressed")
+                            self.camera.save_data()
+                            print("CSV file saved")
 
                         elif self.controller.get_button(8): #PS4 Share Button
                             print("Now Recording")
@@ -90,14 +91,13 @@ class Controller():
                     #change steering angle of vehicle based on left stick movement
                     self.car.change_steering(self.convert_range(self.controller.get_axis(left_stick_axis), servo_angle_max, servo_angle_min))
 
-                 
 
-    
+
+
         except KeyboardInterrupt:
             print("EXITING NOW")
             self.controller.quit()
 
     def start(self):
         controller_thread = threading.Thread(target = self.listen_for_events())
-        controller_thread.start() 
-
+        controller_thread.start()
