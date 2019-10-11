@@ -5,6 +5,7 @@ class Car():
     #creates and initializes a Car object
     def __init__(self, motorPin = 15, servoPin = 0, default_motor_angle = 90, default_servo_angle = 90):
 
+        print("Initializing Car...")
         self.motorPin = motorPin
         self.servoPin = servoPin
         self.default_motor_angle = default_motor_angle

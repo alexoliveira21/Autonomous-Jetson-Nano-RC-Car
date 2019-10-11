@@ -9,7 +9,7 @@ camera = Camera(car=car, image_file_path=image_file_path, csv_file_path=csv_file
 controller = Controller(car=car, camera = camera)
 
 try:
-    controller.listen_for_events()
+    controller.start()
 
 except KeyboardInterrupt:
     print("EXITING PROGRAM")

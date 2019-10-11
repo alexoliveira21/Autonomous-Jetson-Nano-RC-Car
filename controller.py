@@ -1,4 +1,7 @@
 import pygame
+from car import Car
+from camera import Camera
+import threading
 
 #Axis 0 = left stick: -1 (completely left) -> 1 (completely right)
 #Axis 3 = left trigger: -1 (unpressed) -> 1 (completely pressed)
@@ -19,6 +22,7 @@ servo_angle_max = 160
 class Controller():
 
     def __init__(self, car, camera, joystick_number = 0):
+        print("Initializing controller...")
         #initialize pygame to be able to listen for events
         pygame.init()
 
@@ -33,7 +37,7 @@ class Controller():
     def convert_range(self, joystick_value, angle_max, angle_min):
         return (((joystick_value - (-1)) * (angle_max - angle_min)) / (1 - (-1))) + angle_min
 
-
+    
     #listen for any buttons being pressed
     def listen_for_events(self):
 
@@ -47,30 +51,26 @@ class Controller():
                 events = pygame.event.get()
 
                 for event in events:
-                    if self.camera.recording:
-                        print("Currently Recording")
-                        self.camera.capture_frame
-
+                    
+                    
                     if event.type == pygame.JOYBUTTONDOWN:
 
                         if self.controller.get_button(0):
                             self.camera.recording = True
+                            self.camera.start()
                             print("Square Pressed")
 
                         elif self.controller.get_button(1):
                             self.camera.recording = False
-                            self.camera.save_data()
-                            print("Stopped Recording")
-                            print("Circle Pressed")
+                            print("X Pressed")
 
                         elif self.controller.get_button(2):
                             print("Triangle Pressed")
 
                         elif self.controller.get_button(3):
-                            print("X Pressed")
+                            print("Circle Pressed")
 
                         elif self.controller.get_button(8): #PS4 Share Button
-                            #ADD CODE TO START RECORDING
                             print("Now Recording")
 
                         elif self.controller.get_button(10): #PS4 Power Button
@@ -90,9 +90,14 @@ class Controller():
                     #change steering angle of vehicle based on left stick movement
                     self.car.change_steering(self.convert_range(self.controller.get_axis(left_stick_axis), servo_angle_max, servo_angle_min))
 
+                 
 
-
-
+    
         except KeyboardInterrupt:
             print("EXITING NOW")
             self.controller.quit()
+
+    def start(self):
+        controller_thread = threading.Thread(target = self.listen_for_events())
+        controller_thread.start() 
+
