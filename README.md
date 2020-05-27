@@ -1,1 +1,2 @@
 This was a project to create an RC car controlled by a Jetson Nano and playstation controller. This repository contains all the neccessary code to be able to control the car with a PS4 controller. The ultimate goal of this project is to make the car autonomous using Python and Tensorflow.
+![IMG_20200527_155003](https://user-images.githubusercontent.com/42595980/83080440-0839bf80-a033-11ea-968e-f82bd38b04e5.jpg)
