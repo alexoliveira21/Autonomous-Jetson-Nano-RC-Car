@@ -11,14 +11,14 @@ left_trigger_axis = 3
 left_stick_axis = 0
 
 #Sets a very low max speed, good for training purposes
-motor_angle_min = 80
-motor_angle_max = 100
+motor_angle_min = 96
+motor_angle_max = 120
 
+r_motor_angle_min = 95
+r_motor_angle_max = 91
 
-servo_angle_min = 20
-servo_angle_max = 160
-
-
+servo_angle_min = 150
+servo_angle_max = 30
 class Controller():
 
     def __init__(self, car, camera, joystick_number = 0):
@@ -81,12 +81,12 @@ class Controller():
                             print("Stopped Listening")
 
                     #if R2 trigger is pressed it will accelerate car in positive direction
-                    if self.controller.get_axis(right_trigger_axis) >= 0:
+                    if self.controller.get_axis(right_trigger_axis) >= -1 and self.controller.get_axis(left_trigger_axis) <= 0:
                         self.car.change_throttle(self.convert_range(self.controller.get_axis(right_trigger_axis), motor_angle_max, motor_angle_min))
 
                     #if L2 trigger is pressed it will accelerate car in negative direction
-                   # elif self.controller.get_axis(left_trigger_axis) >= 0:
-                        #self.car.change_throttle(self.convert_range(self.controller.get_axis(left_trigger_axis)))
+                    elif self.controller.get_axis(left_trigger_axis) > 0:
+                        self.car.change_throttle(self.convert_range(self.controller.get_axis(left_trigger_axis), r_motor_angle_max, r_motor_angle_min))
 
                     #change steering angle of vehicle based on left stick movement
                     self.car.change_steering(self.convert_range(self.controller.get_axis(left_stick_axis), servo_angle_max, servo_angle_min))

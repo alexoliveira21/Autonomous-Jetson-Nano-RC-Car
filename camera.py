@@ -7,7 +7,7 @@ import threading
 #class holds all necessary functions to record using Open CV video capture
 class Camera():
 
-    def __init__(self, car, image_file_path, csv_file_path, camera_id = 0):
+    def __init__(self, car, image_file_path, csv_file_path, camera_id = -1):
 
         print("Initializing Camera..")
 
@@ -19,6 +19,7 @@ class Camera():
 
         #creates an Open CV video capture object
         self.camera = cv2.VideoCapture(camera_id) #pass 0 if only one camera connected otherwise pass the ID of camera
+	#can add check to see if camera connected by calling self.camera.isOpened()
 
         self.recording = False
         self.image_file_path = image_file_path
@@ -66,7 +67,7 @@ class Camera():
         while self.recording:
             cv2.waitKey(100)
             success, frame = self.camera.read() #returns true to success if frame was captured correctly
-            print(frame)
+            #print(frame)
             throttle, steering = self.car.get_data()
             timestamp = time.time()
 
