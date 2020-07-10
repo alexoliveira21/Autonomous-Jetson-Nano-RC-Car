@@ -77,7 +77,7 @@ class Camera():
                 self.data['Timestamp'].append(timestamp)
                 self.data['Steering'].append(steering)
                 self.data['Throttle'].append(throttle)
-        sys.exit()
+
 
     def start(self):
         video_thread = threading.Thread(target = self.start_recording)

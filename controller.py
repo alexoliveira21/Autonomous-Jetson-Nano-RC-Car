@@ -3,6 +3,7 @@ from car import Car
 from camera import Camera
 import threading
 
+
 #Axis 0 = left stick: -1 (completely left) -> 1 (completely right)
 #Axis 3 = left trigger: -1 (unpressed) -> 1 (completely pressed)
 #Axis 4 = right trigger: -1 (unpressed) -> 1 (completely pressed)
@@ -26,13 +27,8 @@ class Controller():
         pygame.init()
 
         #initialize controller
-        #notify user to turn on controller if it isn't already
-        if pygame.joystick.get_count() == 0:
-            print("Please connect PS4 controller")
-        while pygame.jostick.get_count() == 0:
-            #wait until controller is connected
-
-        print("Controller connected\nInitializing controller...")
+       
+        print("Initializing controller...")
         self.controller = pygame.joystick.Joystick(joystick_number)
         self.controller.init()
         self.car = car
@@ -96,7 +92,7 @@ class Controller():
 
                     #change steering angle of vehicle based on left stick movement
                     self.car.change_steering(self.convert_range(self.controller.get_axis(left_stick_axis), servo_angle_max, servo_angle_min))
-        sys.exit()
+  
 
 
 
