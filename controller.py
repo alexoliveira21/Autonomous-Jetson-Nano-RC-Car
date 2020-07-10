@@ -22,11 +22,17 @@ servo_angle_max = 30
 class Controller():
 
     def __init__(self, car, camera, joystick_number = 0):
-        print("Initializing controller...")
         #initialize pygame to be able to listen for events
         pygame.init()
 
         #initialize controller
+        #notify user to turn on controller if it isn't already
+        if pygame.joystick.get_count() == 0:
+            print("Please connect PS4 controller")
+        while pygame.jostick.get_count() == 0:
+            #wait until controller is connected
+
+        print("Controller connected\nInitializing controller...")
         self.controller = pygame.joystick.Joystick(joystick_number)
         self.controller.init()
         self.car = car
@@ -90,7 +96,7 @@ class Controller():
 
                     #change steering angle of vehicle based on left stick movement
                     self.car.change_steering(self.convert_range(self.controller.get_axis(left_stick_axis), servo_angle_max, servo_angle_min))
-
+        sys.exit()
 
 
 
