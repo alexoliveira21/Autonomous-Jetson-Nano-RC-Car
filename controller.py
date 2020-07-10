@@ -58,7 +58,6 @@ class Controller():
                     if event.type == pygame.JOYBUTTONDOWN:
 
                         if self.controller.get_button(0):
-                            self.camera.recording = True
                             self.camera.start()
                             print("Square Pressed")
 
